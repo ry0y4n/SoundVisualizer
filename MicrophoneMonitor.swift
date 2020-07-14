@@ -69,9 +69,24 @@ class MicrophoneMonitor: ObservableObject {
         })
     }
     
-    //　オブジェクトの非初期化
-    deinit {
+    public func halt() {
+        print("resetするよ")
         timer?.invalidate()
         audioRecorder.stop()
+        print("resetしたよ")
+    }
+    
+    public func restart() {
+        print("restartするよ")
+        startMonitoring()
+        print("restartしたよ")
+    }
+    
+    //　オブジェクトの非初期化
+    deinit {
+        print("deinitするよ")
+        timer?.invalidate()
+        audioRecorder.stop()
+        print("deinitしたよ")
     }
 }

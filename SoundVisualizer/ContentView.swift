@@ -54,7 +54,7 @@ struct ContentView: View {
     }
     
     func playHaptics() {
-        self.mic.deinit
+        mic.halt()
         guard CHHapticEngine.capabilitiesForHardware()
             .supportsHaptics  else { print("no support"); return; }
 //        var events = [CHHapticEvent]() // CHHapticEvent: 1つの触覚またはオーディオイベントオブジェクト
@@ -65,7 +65,7 @@ struct ContentView: View {
 //        events.append(event)
         
         let audioEvent = CHHapticEvent(eventType: .audioContinuous, parameters: [
-        CHHapticEventParameter(parameterID: .audioPitch, value: -0.15),
+            CHHapticEventParameter(parameterID: .audioPitch, value: 0.7),
         CHHapticEventParameter(parameterID: .audioVolume, value: 1),
         CHHapticEventParameter(parameterID: .decayTime, value: 1),
         CHHapticEventParameter(parameterID: .sustained, value: 0)
@@ -83,7 +83,9 @@ struct ContentView: View {
         } catch {
             print("Failed to play pattern: \(error.localizedDescription).")
         }
+        mic.restart()
         print("b")
+        
     }
 }
 
