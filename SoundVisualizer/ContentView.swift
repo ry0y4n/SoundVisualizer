@@ -20,7 +20,10 @@ struct ContentView: View {
     // -160 ~ 0の入力を0.1 ~ 25の間に正則化し，可視化の都合で300までにさらに変換
     private func normalizeSoundLevel(level: Float) -> CGFloat {
         let level = max(0.2, CGFloat(level) + 50) / 2
-        
+        if(CGFloat(level * (300 / 25)) > 200) {
+            print(">200: 何か喋ってる")
+            playHaptics()
+        }
         return CGFloat(level * (300 / 25))
     }
     
@@ -65,15 +68,15 @@ struct ContentView: View {
 //        events.append(event)
         
         let audioEvent = CHHapticEvent(eventType: .audioContinuous, parameters: [
-            CHHapticEventParameter(parameterID: .audioPitch, value: 0.7),
-        CHHapticEventParameter(parameterID: .audioVolume, value: 1),
-        CHHapticEventParameter(parameterID: .decayTime, value: 1),
-        CHHapticEventParameter(parameterID: .sustained, value: 0)
+            CHHapticEventParameter(parameterID: .audioPitch, value: 0.5),
+            CHHapticEventParameter(parameterID: .audioVolume, value: 1),
+            CHHapticEventParameter(parameterID: .decayTime, value: 1),
+            CHHapticEventParameter(parameterID: .sustained, value: 0)
         ], relativeTime: 0)
-        let hapticEvent = CHHapticEvent(eventType: .hapticContinuous, parameters: [
+        let hapticEvent = CHHapticEvent(eventType: .hapticTransient, parameters: [
         CHHapticEventParameter(parameterID: .hapticSharpness, value: 1),
         CHHapticEventParameter(parameterID: .hapticIntensity, value: 1)
-        ], relativeTime: 0, duration: 3)
+        ], relativeTime: 0)
         
         do {
             let pattern = try! CHHapticPattern(events: [audioEvent, hapticEvent], parameters: [])
