@@ -61,15 +61,9 @@ struct ContentView: View {
         print("触覚フィードバックスタート")
         guard CHHapticEngine.capabilitiesForHardware()
             .supportsHaptics  else { print("no support"); return; }
-//        var events = [CHHapticEvent]() // CHHapticEvent: 1つの触覚またはオーディオイベントオブジェクト
-//
-//        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 1)
-//        let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 1)
-//        let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0)
-//        events.append(event)
         
         let audioEvent = CHHapticEvent(eventType: .audioContinuous, parameters: [
-            CHHapticEventParameter(parameterID: .audioPitch, value: 0.5),
+            CHHapticEventParameter(parameterID: .audioPitch, value: 0.7),
             CHHapticEventParameter(parameterID: .audioVolume, value: 1),
             CHHapticEventParameter(parameterID: .decayTime, value: 0.3),
             CHHapticEventParameter(parameterID: .sustained, value: 0)
