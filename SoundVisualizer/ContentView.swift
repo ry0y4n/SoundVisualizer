@@ -53,7 +53,6 @@ struct ContentView: View {
         } catch {
             print("There was an error creating the engine: \(error.localizedDescription).")
         }
-        print("a")
     }
     
     func playHaptics() {
